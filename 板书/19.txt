@@ -1,0 +1,52 @@
+ssm
+
+spring, spring mvc, mybatis
+
+1.
+Topic mybatis 版本
+
+    1. 新建一个 TopicModel
+    2. 新建一个 Topic 表
+        1. workbench 创建一个表
+        2. 复制记录创表语句
+    3. 新建一个 TopicMapper
+    4. 新建一个 TopicMapper.xml
+    5. 新建一个 TopicService
+    6. 新建一个 TopicController
+        1. 实现 index 路由
+        2. 实现 add 路由
+    7. 做页面, topic_index
+
+
+实现编辑功能
+1. edit 路由, 返回 topic_edit 页面
+2. update 路由, 接受 post 数据, 更新数据
+
+
+实现文章浏览功能
+1. detai 路由
+2. detail 页面
+3. 在 index 页面实现点击文章标题, 跳转到 detail 页面
+
+
+2.
+User mybatis
+实现用户的注册和登录
+
+
+3.
+AOP, 面向切面编程
+就是在一个函数运行的前后插入一些代码
+
+
+
+排查问题思路
+1. 查看 Model 文件, 每个属性是否都有 set 和 get 方法, 是否写对了
+
+2. 查看 Mapper xml 文件, 看 sql 语句是否正常, 是否多插或者少插了数据
+
+3. 查看 Service 文件, 看是否少添加了属性
+
+4. 查看 Controller 文件, 看是否正确处理了参数
+
+

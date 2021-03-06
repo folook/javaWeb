@@ -1,0 +1,63 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 和 java mapper 的类名一样，从包名开始打，有自动补全-->
+<mapper namespace="kybmig.ssm.mapper.TopicCommentMapper">
+    <!-- resultType 和 mapper 中的方法返回值一样，不能省，从包名开始打，有自动补全-->
+    <!--  里面的 sql 语句，有自动补全,要配置 ide 的 datasource -->
+    <select id="selectAllTopicComment" resultType="kybmig.ssm.model.TopicCommentModel">
+        SELECT * FROM ssm.TopicComment
+    </select>
+
+
+    <!-- 传参数方式1，直接传入一个基本类型 int，这个 int 会被绑定到 ${id} -->
+    <select id="selectTopicComment" resultType="kybmig.ssm.model.TopicCommentModel">
+        SELECT * FROM ssm.TopicComment WHERE id = ${commentId}
+    </select>
+
+    <!-- 传参方式2，传入一个对象。content 代表这个对象的 content 属性，注意这个对象要有 getter setter -->
+    <!-- useGeneratedKeys keyProperty 当我传入一个对象的时候，这两个属性可以把数据库创建的 id 赋值给这个对象 -->
+    <insert id="insertTopicComment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ssm.TopicComment ( content, userId, topicId, createdTime, updatedTime) VALUES ( #{content}, #{userId}, #{topicId}, #{createdTime}, #{updatedTime})
+    </insert>
+    
+    <update id="updateTopicComment">
+        UPDATE ssm.TopicComment SET content = #{content}, updatedTime = #{updatedTime} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTopicComment">
+        DELETE FROM ssm.TopicComment WHERE id = #{id}
+    </delete>
+
+<!--    <select id="selectAllTopicCommentByTopicId" resultType="kybmig.ssm.model.TopicCommentModel">-->
+<!--        SELECT * FROM ssm.TopicComment where topicId = #{topicId}-->
+<!--    </select>-->
+
+
+
+    <resultMap id="TopicCommentWithUserMap" type="kybmig.ssm.model.TopicCommentModel">
+        <id property="id" column="id" />
+        <result property="content" column="content" />
+        <result property="userId" column="userId" />
+        <result property="topicId" column="topicId" />
+        <result property="createdTime" column="createdTime" />
+        <result property="updatedTime" column="updatedTime" />
+        <association property="commentOwner" javaType="kybmig.ssm.model.UserModel">
+            <id property="id" column="id" />
+            <result property="username" column="username" />
+        </association>
+    </resultMap>
+
+
+    <select id="selectAllTopicCommentByTopicId" resultMap="TopicCommentWithUserMap">
+        SELECT
+            TopicComment.*,
+            User.id,
+            User.username
+        FROM ssm.TopicComment
+                 join User
+                      on TopicComment.userId = User.id
+        where TopicComment.topicId = #{topicId}
+    </select>
+
+</mapper>

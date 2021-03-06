@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 和 java mapper 的类名一样，从包名开始打，有自动补全-->
+<mapper namespace="kybmig.ssm.mapper.WebNumMapper">
+    <!-- resultType 和 mapper 中的方法返回值一样，不能省，从包名开始打，有自动补全-->
+    <!--  里面的 sql 语句，有自动补全,要配置 ide 的 datasource -->
+    <select id="findHomePageNum" resultType="kybmig.ssm.model.WebNumModel">
+        SELECT * FROM ssm.WebNum
+    </select>
+
+<!--    &lt;!&ndash; 传参数方式1，直接传入一个基本类型 int，这个 int 会被绑定到 ${id} &ndash;&gt;-->
+<!--    <select id="selectWeibo" resultType="kybmig.ssm.model.WeiboModel">-->
+<!--        SELECT * FROM ssm.Weibo WHERE id = ${id}-->
+<!--    </select>-->
+
+
+    <update id="updateHomePageNum">
+        UPDATE ssm.WebNum SET homePageNum = #{homePageNum} WHERE id = 1
+    </update>
+
+    <update id="updateIndexPageNum">
+        UPDATE ssm.WebNum SET indexPageNum = #{indexPageNum} WHERE id = 1
+    </update>
+
+</mapper>
